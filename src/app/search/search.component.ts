@@ -33,6 +33,7 @@ type CustomRouteState = {
 @Component({
   selector: 'algolia-search',
   templateUrl: './search.component.html',
+  styleUrls: ['../app.component.css'],
 })
 export class SearchComponent {
   constructor(private route: ActivatedRoute) {}

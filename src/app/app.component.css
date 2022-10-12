@@ -39,10 +39,12 @@
 
 .search-panel__filters {
   flex: 1;
+  padding: 1rem;
 }
 
 .search-panel__results {
   flex: 3;
+  padding: 1rem;
 }
 
 .searchbox {

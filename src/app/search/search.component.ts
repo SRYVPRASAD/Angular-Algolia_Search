@@ -1,29 +1,47 @@
-// search/search.component.ts
-import algoliasearch from 'algoliasearch/lite';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { history as historyRouter } from 'instantsearch.js/es/lib/routers';
+import { UiState } from 'instantsearch.js/es/types';
+
+import algoliasearch from 'algoliasearch/lite';
+import { InstantSearchConfig } from 'angular-instantsearch/instantsearch/instantsearch';
 
 // Returns a slug from the category name.
 // Spaces are replaced by "+" to make
 // the URL easier to read and other
 // characters are encoded.
-function getCategorySlug(name) {
+function getCategorySlug(name: string) {
   return name.split(' ').map(encodeURIComponent).join('+');
 }
 
 // Returns a name from the category slug.
 // The "+" are replaced by spaces and other
 // characters are decoded.
-function getCategoryName(slug) {
+function getCategoryName(slug: string) {
   return slug.split('+').map(decodeURIComponent).join(' ');
 }
 
-/* ... */
+const searchClient = algoliasearch(
+  'B1G2GM9NG0',
+  'aadef574be1f9252bb48d4ea09b5cfe5'
+);
+
+type CustomRouteState = {
+  [stateKey: string]: any;
+};
+
+@Component({
+  selector: 'algolia-search',
+  templateUrl: './search.component.html',
+})
 export class SearchComponent {
-  config = {
+  constructor(private route: ActivatedRoute) {}
+
+  public config: InstantSearchConfig = {
     indexName: 'demo_ecommerce',
-    searchClient: algoliasearch('latency', '6be0576ff61c053d5f9a3225e2a90f76'),
+    searchClient,
     routing: {
-      router: historyRouter({
+      router: historyRouter<CustomRouteState>({
         windowTitle({ category, query }) {
           const queryTitle = query ? `Results for "${query}"` : 'Search';
 
@@ -34,23 +52,21 @@ export class SearchComponent {
           return queryTitle;
         },
 
-        createURL({ qsModule, routeState, location }) {
-          const urlParts = location.href.match(/^(.*?)\/search/);
-          const baseUrl = `${urlParts ? urlParts[1] : ''}/`;
-
-          const categoryPath = routeState.category
-            ? `${getCategorySlug(routeState.category)}/`
+        createURL({ qsModule, routeState }) {
+          const categoryPath = routeState['category']
+            ? `${getCategorySlug(routeState['category'])}/`
             : '';
-          const queryParameters = {};
+          const queryParameters = {} as any;
 
-          if (routeState.query) {
-            queryParameters.query = encodeURIComponent(routeState.query);
+          if (routeState['query']) {
+            queryParameters.query = encodeURIComponent(routeState['query']);
           }
-          if (routeState.page !== 1) {
-            queryParameters.page = routeState.page;
+          if (routeState['page'] !== 1) {
+            queryParameters.page = routeState['page'];
           }
-          if (routeState.brands) {
-            queryParameters.brands = routeState.brands.map(encodeURIComponent);
+          if (routeState['brands']) {
+            queryParameters.brands =
+              routeState['brands'].map(encodeURIComponent);
           }
 
           const queryString = qsModule.stringify(queryParameters, {
@@ -58,23 +74,17 @@ export class SearchComponent {
             arrayFormat: 'repeat',
           });
 
-          return `${baseUrl}search/${categoryPath}${queryString}`;
+          return `/search/${categoryPath}${queryString}`;
         },
 
-        parseURL({ qsModule, location }) {
-          const pathnameMatches = location.pathname.match(/search\/(.*?)\/?$/);
+        parseURL: () => {
+          const { params, queryParams } = this.route.snapshot;
           const category = getCategoryName(
-            decodeURIComponent((pathnameMatches && pathnameMatches[1]) || '')
+            decodeURIComponent(params['category'] || '')
           );
-          const {
-            query = '',
-            page,
-            brands = [],
-          } = qsModule.parse(location.search.slice(1));
-          // `qs` does not return an array when there's a single value.
-          const allBrands = Array.isArray(brands)
-            ? brands
-            : [brands].filter(Boolean);
+          const { query = '', page, brands = [] } = queryParams;
+          // brands is not an array when there's a single value.
+          const allBrands = [].concat(brands);
 
           return {
             query: decodeURIComponent(query),
@@ -86,24 +96,30 @@ export class SearchComponent {
       }),
 
       stateMapping: {
-        stateToRoute(uiState) {
+        stateToRoute(uiState: UiState): CustomRouteState {
           return {
-            query: uiState.query,
-            page: uiState.page,
-            brands: uiState.refinementList && uiState.refinementList.brand,
-            category: uiState.menu && uiState.menu.categories,
+            query: uiState['demo_ecommerce'].query,
+            page: uiState['demo_ecommerce'].page,
+            brands:
+              uiState['demo_ecommerce'].refinementList &&
+              uiState['demo_ecommerce'].refinementList['brands'],
+            category:
+              uiState['demo_ecommerce'].menu &&
+              uiState['demo_ecommerce'].menu['categories'],
           };
         },
 
-        routeToState(routeState) {
+        routeToState(routeState: CustomRouteState): UiState {
           return {
-            query: routeState.query,
-            page: routeState.page,
-            menu: {
-              categories: routeState.category,
-            },
-            refinementList: {
-              brand: routeState.brands,
+            demo_ecommerce: {
+              query: routeState['query'],
+              page: routeState['page'],
+              menu: {
+                categories: routeState['category'],
+              },
+              refinementList: {
+                brand: routeState['brands'],
+              },
             },
           };
         },

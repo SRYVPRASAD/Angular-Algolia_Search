@@ -53,6 +53,7 @@
 }
 
 .pagination {
+  width: max-content;
   margin: 2rem auto;
   text-align: center;
 }

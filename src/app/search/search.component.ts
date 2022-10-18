@@ -6,21 +6,21 @@ import { UiState } from 'instantsearch.js/es/types';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearchConfig } from 'angular-instantsearch/instantsearch/instantsearch';
 
-// Returns a slug from the category name.
-// Spaces are replaced by "+" to make
-// the URL easier to read and other
-// characters are encoded.
+/* Returns a slug from the category name.
+  Spaces are replaced by "+" to make the URL easier to read and other characters are encoded.*/
+
 function getCategorySlug(name: string) {
   return name.split(' ').map(encodeURIComponent).join('+');
 }
 
-// Returns a name from the category slug.
-// The "+" are replaced by spaces and other
-// characters are decoded.
+/* Returns a name from the category slug.
+ The "+" are replaced by spaces and other  characters are decoded.*/
+
 function getCategoryName(slug: string) {
   return slug.split('+').map(decodeURIComponent).join(' ');
 }
 
+/* const searchClient = algoliasearch('YourApplicationID', 'YourSearchOnlyAPIKey'); */
 const searchClient = algoliasearch(
   'B1G2GM9NG0',
   'aadef574be1f9252bb48d4ea09b5cfe5'
@@ -41,6 +41,7 @@ export class SearchComponent {
   public config: InstantSearchConfig = {
     indexName: 'demo_ecommerce',
     searchClient,
+    /* SEO-friendly URLs */
     routing: {
       router: historyRouter<CustomRouteState>({
         windowTitle({ category, query }) {

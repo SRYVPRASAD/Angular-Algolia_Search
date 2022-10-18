@@ -1,5 +1,7 @@
 .header {
   display: flex;
+  justify-content: space-between;
+  overflow: hidden;
   align-items: center;
   min-height: 50px;
   padding: 0.5rem 1rem;
@@ -16,6 +18,7 @@
 .header-title {
   font-size: 1.2rem;
   font-weight: normal;
+  display: block;
 }
 
 .header-title::after {
@@ -83,4 +86,19 @@
   color: #888;
   font-size: 14px;
   margin-bottom: 0.5em;
+}
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .header-right {
+    float: none;
+  }
 }

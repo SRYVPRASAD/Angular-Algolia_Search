@@ -1,18 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { NgAisModule } from 'angular-instantsearch';
 
 import { AppComponent } from './app.component';
+
 import { OnVisibleDirective } from './on-visible.directive';
+
+import { InfiniteScrollComponent } from './infinite-scroll/infiniteScroll';
 import { SearchComponent } from './search/search.component';
-import { RouterModule, Routes } from '@angular/router';
+
 const appRoutes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'search/:category', component: SearchComponent },
-  { path: 'infinete-scroll', component: AppComponent },
+  { path: 'scroll', component: InfiniteScrollComponent },
 ];
 @NgModule({
-  declarations: [SearchComponent, AppComponent, OnVisibleDirective],
+  declarations: [
+    SearchComponent,
+    AppComponent,
+    InfiniteScrollComponent,
+    OnVisibleDirective,
+  ],
   imports: [
     NgAisModule.forRoot(),
     BrowserModule,

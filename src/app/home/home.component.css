@@ -1,15 +1,7 @@
-button {
-  margin: 10px;
-  padding: 5px 20px;
-}
-
-/* animated background */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -61,7 +53,7 @@ button {
 }
 
 .container .card .box:hover {
-  transform: translateY(-50px);
+  transform: translateY(-10px);
 }
 
 .container .card .box:before {
@@ -88,7 +80,7 @@ button {
 }
 
 .container .card .box .content h3 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #fff;
   z-index: 1;
   transition: 0.5s;

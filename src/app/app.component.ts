@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `<header class="header">
   <h1 class="header-title">
-    <a href="/">Algolia Search</a>
+    <a  routerLink="/">Algolia Search</a>
   </h1>
   <p class="header-subtitle">
     Using
@@ -14,9 +14,9 @@ import { Component } from '@angular/core';
   </p>
 
   <nav class="header-right">
-    <a class="active" routerLink="home" routerLinkActive="active">| Home </a>
-    <a routerLink="scroll" routerLinkActive="active">| Infinite Scroll </a>
-    <a routerLink="search" routerLinkActive="active">| Search URL</a>
+    <a class="active" routerLink="/" routerLinkActive="active">| Home </a>
+    <a routerLink="/scroll" routerLinkActive="active">| Infinite Scroll </a>
+    <a routerLink="/search" routerLinkActive="active">| Search URL</a>
   </nav>
 </header>
 

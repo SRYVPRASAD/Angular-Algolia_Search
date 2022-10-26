@@ -99,7 +99,9 @@ h2 {
     display: block;
     text-align: left;
   }
-
+  .header-subtitle {
+    display: none;
+  }
   .header-right {
     float: none;
   }

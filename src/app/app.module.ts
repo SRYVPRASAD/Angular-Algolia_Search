@@ -11,18 +11,18 @@ import { InfiniteScrollComponent } from './infinite-scroll/infiniteScroll';
 import { SearchComponent } from './search/search.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'search', component: SearchComponent },
   { path: 'scroll', component: InfiniteScrollComponent },
-  { path: '**', component: HomeComponent },
+  { path: '**', redirectTo: '', component: HomeComponent },
 ];
 @NgModule({
   declarations: [
-    SearchComponent,
     AppComponent,
     HomeComponent,
     InfiniteScrollComponent,
     OnVisibleDirective,
+    SearchComponent,
   ],
   imports: [
     NgAisModule.forRoot(),

@@ -44,7 +44,7 @@ const searchClient = algoliasearch(
   </ais-instantsearch>
 </div> 
 	`,
-  styleUrls: ['../app.component.css'],
+  styleUrls: ['../algolia.css'],
 })
 export class InfiniteScrollComponent {
   config = {

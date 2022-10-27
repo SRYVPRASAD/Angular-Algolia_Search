@@ -24,7 +24,6 @@ h2 {
 }
 
 .header-title::after {
-  content: ' ▸ ';
   padding: 0 0.5rem;
 }
 

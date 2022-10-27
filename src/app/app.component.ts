@@ -21,6 +21,5 @@ import { Component } from '@angular/core';
 </header>
 
 <router-outlet> </router-outlet>`,
-  styleUrls: ['./algolia.css'],
 })
 export class AppComponent {}

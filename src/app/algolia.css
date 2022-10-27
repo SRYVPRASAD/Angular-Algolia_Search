@@ -1,34 +1,5 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  overflow: hidden;
-  align-items: center;
-  min-height: 50px;
-  padding: 0.5rem 1rem;
-  background-image: linear-gradient(to right, #c3002f, #dd0031);
-  color: #fff;
-  margin-bottom: 1rem;
-}
 h2 {
   margin: 30px 0px;
-}
-.header a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.header-title {
-  font-size: 1.2rem;
-  font-weight: normal;
-  display: block;
-}
-
-.header-title::after {
-  padding: 0 0.5rem;
-}
-
-.header-subtitle {
-  font-size: 1.2rem;
 }
 
 .container {

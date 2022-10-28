@@ -16,6 +16,12 @@ const searchClient = algoliasearch(
         <div class="searchbox">
           <ais-search-box placeholder=""></ais-search-box>
         </div>
+        
+        <ais-stats>
+        <ng-template let-state="state">{{'hit.length'}}
+          {{state.nbHits}} results .
+        </ng-template>
+      </ais-stats>
 
         <ais-infinite-hits>
           <ng-template
@@ -23,6 +29,7 @@ const searchClient = algoliasearch(
             let-results="results"
             let-refine="showMore"
           >
+          <h2>this value of length {{hits.length}}</h2>
             <div *ngIf="hits.length === 0">No results found.</div>
 
             <ol class="ais-Hits-list">

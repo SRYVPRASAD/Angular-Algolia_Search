@@ -59,20 +59,3 @@ h2 {
   font-size: 14px;
   margin-bottom: 0.5em;
 }
-.header-right {
-  float: right;
-}
-
-@media screen and (max-width: 700px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-  .header-subtitle {
-    display: none;
-  }
-  .header-right {
-    float: none;
-  }
-}

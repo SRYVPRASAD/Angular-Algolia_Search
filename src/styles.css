@@ -56,3 +56,20 @@ p {
 .header-subtitle {
   font-size: 1.2rem;
 }
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 700px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-subtitle {
+    display: none;
+  }
+  .header-right {
+    float: none;
+  }
+}

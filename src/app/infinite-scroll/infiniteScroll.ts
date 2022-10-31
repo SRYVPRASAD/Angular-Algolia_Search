@@ -18,7 +18,7 @@ const searchClient = algoliasearch(
         </div>
         
         <ais-stats>
-        <ng-template let-state="state">{{'hit.length'}}
+        <ng-template let-state="state">{{result_hits}} of
           {{state.nbHits}} results .
         </ng-template>
       </ais-stats>
@@ -29,11 +29,11 @@ const searchClient = algoliasearch(
             let-results="results"
             let-refine="showMore"
           >
-          <h2>this value of length {{hits.length}}</h2>
+          
             <div *ngIf="hits.length === 0">No results found.</div>
 
             <ol class="ais-Hits-list">
-              <li class="ais-Hits-item" *ngFor="let hit of hits">
+              <li class="ais-Hits-item" *ngFor="let hit of hits" (onVisible)='result_hits = hits.length '>
                 <ais-highlight attribute="name" [hit]="hit"></ais-highlight>
               </li>
               <div (onVisible)="refine()"></div>
@@ -54,6 +54,8 @@ const searchClient = algoliasearch(
   styleUrls: ['../algolia.css'],
 })
 export class InfiniteScrollComponent {
+  result_hits = 0;
+
   config = {
     indexName: 'instant_search',
     searchClient,

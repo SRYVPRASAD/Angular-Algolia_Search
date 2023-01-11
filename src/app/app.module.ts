@@ -12,7 +12,9 @@ import { SearchComponent } from './search/search.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'search/:category', component: SearchComponent },
   { path: 'search', component: SearchComponent },
+
   { path: 'scroll', component: InfiniteScrollComponent },
   { path: '**', redirectTo: '', component: HomeComponent },
 ];

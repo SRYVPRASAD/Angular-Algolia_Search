@@ -10,7 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { InfiniteScrollComponent } from './infinite-scroll/infiniteScroll';
 import { SearchComponent } from './search/search.component';
 
-const appRoutes: Routes = [
+const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'search/:category', component: SearchComponent },
   { path: 'search', component: SearchComponent },
@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   imports: [
     NgAisModule.forRoot(),
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent],

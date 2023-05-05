@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   selector: 'product-card',
   template: `<div><h1>{{product.name}}</h1> </div>`,
 })
-export class ProductComponent {
+export class CardComponent {
   @Input() Product: any;
   constructor() {}
 }

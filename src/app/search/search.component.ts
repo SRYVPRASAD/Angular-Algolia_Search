@@ -41,7 +41,11 @@ export class SearchComponent {
   public config: InstantSearchConfig = {
     indexName: 'demo_ecommerce',
     searchClient,
-    /* SEO-friendly URLs */
+    /* Refer both to avoid URL problems SEO-friendly URLs & history
+     * https://www.algolia.com/doc/guides/building-search-ui/going-further/routing-urls/js/#overview
+     * https://www.algolia.com/doc/api-reference/widgets/history-router/js/#widget-param-createurl
+     */
+
     routing: {
       router: historyRouter<CustomRouteState>({
         windowTitle({ category, query }) {
@@ -54,10 +58,19 @@ export class SearchComponent {
           return queryTitle;
         },
 
-        createURL({ qsModule, routeState }) {
+        createURL({ qsModule, location, routeState }) {
+          const { origin, pathname, hash } = location;
+
           const categoryPath = routeState['category']
             ? `${getCategorySlug(routeState['category'])}/`
             : '';
+
+          /* this will put the history clean and  avoid to change URL after nav to different route  */
+          if (pathname !== '/search') {
+            return `${location}`;
+          }
+
+          /* Custom URL design here  */
           const queryParameters = {} as any;
 
           if (routeState['query']) {
@@ -85,6 +98,7 @@ export class SearchComponent {
             decodeURIComponent(params['category'] || '')
           );
           const { query = '', page, brands = [] } = queryParams;
+
           // brands is not an array when there's a single value.
           const allBrands = [].concat(brands);
 

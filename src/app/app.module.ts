@@ -5,32 +5,33 @@ import { NgAisModule } from 'angular-instantsearch';
 
 import { AppComponent } from './app.component';
 
-import { OnVisibleDirective } from './on-visible.directive';
+import { OnVisibleDirective, CardComponent } from './shared';
 import { HomeComponent } from './home/home.component';
 import { InfiniteScrollComponent } from './infinite-scroll/infiniteScroll';
 import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+
   { path: 'search/:category', component: SearchComponent },
   { path: 'search', component: SearchComponent },
 
   { path: 'scroll', component: InfiniteScrollComponent },
   { path: '**', redirectTo: '', component: HomeComponent },
 ];
+
+const components = [
+  AppComponent,
+  HomeComponent,
+  InfiniteScrollComponent,
+  SearchComponent,
+];
+
+const sharedComponents = [CardComponent, OnVisibleDirective];
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    InfiniteScrollComponent,
-    OnVisibleDirective,
-    SearchComponent,
-  ],
-  imports: [
-    NgAisModule.forRoot(),
-    BrowserModule,
-    RouterModule.forRoot(routes),
-  ],
+  declarations: [...components, ...sharedComponents],
+  imports: [BrowserModule, NgAisModule.forRoot(), RouterModule.forRoot(routes)],
   providers: [],
   bootstrap: [AppComponent],
 })
